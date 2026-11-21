@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#c0c0c0">
+<title>SteamGlass Setup Center</title>
+<style>
+:root{--gray:#c0c0c0;--blue:#000080;--white:#fff;--shadow:#404040}
+*{box-sizing:border-box}
+body{margin:0;background:#008080;color:#111;font:14px Tahoma,Verdana,Arial,sans-serif;min-height:100vh}
+a{color:#00e;text-decoration:underline}
+.desktop{min-height:100vh;padding:28px 16px 44px;background-color:#008080;background-image:radial-gradient(#ffffff22 1px,transparent 1px);background-size:4px 4px}
+.window{width:min(920px,calc(100vw - 32px));min-width:300px;max-width:calc(100vw - 20px);height: min(760px,calc(100vh - 80px));min-height:430px;max-height:calc(100vh - 32px);margin:0 auto;background:var(--gray);border:2px solid;border-color:#fff #404040 #404040 #fff;box-shadow:5px 5px 0 #004747;display:flex;flex-direction:column;resize:both;overflow:hidden}
+.titlebar{height:30px;flex:0 0 30px;background:linear-gradient(90deg,#000080,#1084d0);color:#fff;font-weight:bold;padding:5px 7px;display:flex;justify-content:space-between;align-items:center;cursor:move;user-select:none}
+.titlebar .caption{display:flex;align-items:center;gap:8px}
+.titlebar img{width:18px;height:18px;object-fit:contain;background:#fff}
+.controls{display:flex;gap:3px}.controls button{width:20px;height:19px;padding:0;background:#c0c0c0;border:1px solid;border-color:#fff #404040 #404040 #fff;font:bold 12px Arial;line-height:15px;cursor:pointer}
+.toolbar{height:29px;flex:0 0 29px;padding:6px 10px;border-bottom:1px solid #808080;background:#d4d0c8}
+main{padding:17px;overflow:auto;flex:1;scrollbar-color:#c0c0c0 #e5e5e5;scrollbar-width:thin}
+.hero{display:flex;gap:17px;align-items:center;padding:13px;background:#d4d0c8;border:2px groove #fff}
+.logo{width:76px;height:76px;object-fit:contain;background:#fff;border:2px inset #fff;padding:3px}
+h1{font-size:25px;margin:0 0 6px;color:#000080}
+h2{font-size:17px;color:#000080;margin:0 0 11px;border-bottom:1px solid #808080;padding-bottom:6px}
+p{line-height:1.55}
+.tag{display:inline-block;background:#ffffcc;border:1px solid #999;padding:3px 7px;font-size:11px;margin-top:5px}
+.layout{display:grid;grid-template-columns:1fr 225px;gap:14px;margin-top:15px}
+.panel{background:#d4d0c8;border:2px groove #fff;padding:13px;margin-bottom:13px}
+.steps{display:flex;gap:5px;flex-wrap:wrap;margin:12px 0}
+.stepdot{padding:5px 8px;background:#c0c0c0;border:1px solid #888;color:#555}
+.stepdot.active{background:#000080;color:#fff;border:1px solid #fff}
+.progress{height:16px;border:2px inset #888;background:#eee;padding:2px;margin:10px 0}
+.progress span{display:block;height:100%;width:25%;background:repeating-linear-gradient(90deg,#000080 0 12px,#1084d0 12px 14px);transition:width .25s}
+.action{display:inline-block;padding:8px 14px;margin:5px 5px 0 0;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;color:#111;text-decoration:none;font-weight:bold;cursor:pointer}
+.action:active{border-color:#404040 #fff #fff #404040;transform:translate(1px,1px)}
+.action.primary{background:#d6d6d6;color:#000080}
+.action:disabled{color:#777;cursor:not-allowed}
+.field{display:block;width:100%;padding:7px;background:#fff;border:2px inset #888;font:14px Tahoma;margin:7px 0 12px}
+.notice{background:#ffffcc;border:1px solid #b7a65a;padding:9px;line-height:1.5}
+.console{background:#111;color:#00ff66;font:12px "Courier New",monospace;padding:10px;min-height:90px;white-space:pre-wrap;border:2px inset #888}
+ul{padding-left:20px;line-height:1.8}
+.wizard-page{display:none;min-height:270px}.wizard-page.active{display:block;animation:pageIn .16s steps(2,end)}
+@keyframes pageIn{from{opacity:.82;transform:translateX(2px)}to{opacity:1;transform:translateX(0)}}
+.statusbar{height:25px;flex:0 0 25px;border-top:1px solid #fff;box-shadow:inset 0 1px #888;padding:5px 9px;font-size:11px;display:flex;justify-content:space-between}
+.footer{text-align:center;color:#eaffff;padding:13px;font-size:12px;line-height:1.8}
+body.scroll-jolt main{scroll-behavior:auto}
+@media(max-width:700px){.layout{grid-template-columns:1fr}.window{height:calc(100vh - 36px);min-height:400px}.desktop{padding:10px 0}.hero{align-items:flex-start}.logo{width:58px;height:58px}h1{font-size:21px}main{padding:10px}}
+</style>
+</head>
+<body>
+<div class="desktop">
+ <div class="window" id="appWindow">
+  <div class="titlebar" id="dragBar">
+   <span class="caption"><img src="assets/steamglass-logo.jpg" alt=""> SteamGlass Setup Center — Interactive installer</span>
+   <span class="controls"><button id="minBtn" title="Свернуть">_</button><button id="maxBtn" title="Развернуть">□</button><button id="closeBtn" title="Закрыть">×</button></span>
+  </div>
+  <div class="toolbar">File&nbsp;&nbsp; Setup&nbsp;&nbsp; View&nbsp;&nbsp; Help <span style="float:right">Welcome, user!</span></div>
+  <main id="mainScroll">
+   <section class="hero">
+    <img class="logo" src="assets/steamglass-logo.jpg" alt="SteamGlass logo">
+    <div><h1>SteamGlass</h1><p style="margin:0">Настрой внешний вид Steam на Linux.<br>Добро пожаловать в интерактивный центр установки.</p><span class="tag">★ Linux • Themes • Plugins</span></div>
+   </section>
+   <div class="steps" aria-label="Шаги установки">
+    <span class="stepdot active">1. Welcome</span><span class="stepdot">2. Options</span><span class="stepdot">3. Install</span><span class="stepdot">4. Finish</span>
+   </div>
+   <div class="progress"><span id="progressFill"></span></div>
+   <div class="layout">
+    <div>
+     <section class="panel wizard-page active" data-page="0">
+      <h2>Добро пожаловать!</h2>
+      <p>Это небольшая ретро-имитация установщика SteamGlass. Окно можно перемещать за синюю строку заголовка, менять его размер за нижний правый угол, а содержимое — прокручивать.</p>
+      <div class="notice">Совет: попробуй развернуть окно кнопкой □, затем вернуть прежний размер. Внутри страницы есть несколько шагов мастера.</div>
+      <p>SteamGlass помогает управлять темами и плагинами оформления Steam на Linux.</p>
+      <div class="notice" id="releaseStatus" role="status">Проверяем последнюю версию SteamGlass на GitLab…</div>
+      <p><button class="action primary" id="downloadLatest">↓ Скачать последнюю версию</button> <a href="https://gitlab.com/justiex/steamglass/-/releases" target="_blank" rel="noopener">Все релизы</a></p>
+      <button class="action primary next">Далее →</button>
+     </section>
+     <section class="panel wizard-page" data-page="1">
+      <h2>Параметры установки</h2>
+      <label for="channel">Канал обновлений</label>
+      <select class="field" id="channel"><option>Stable — стабильные релизы</option><option>Preview — тестовые сборки</option></select>
+      <label for="installType">Тип установки</label>
+      <select class="field" id="installType"><option>Arch Linux package (.pkg.tar.zst)</option><option>Исходный код (.tar.gz)</option></select>
+      <label><input type="checkbox" id="desktopShortcut" checked> Создать пункт приложения (демо)</label><br>
+      <label><input type="checkbox" id="checkUpdates" checked> Проверять обновления через GitLab</label>
+      <p><button class="action" id="back1">← Назад</button><button class="action primary next">Далее →</button></p>
+     </section>
+     <section class="panel wizard-page" data-page="2">
+      <h2>Установка</h2>
+      <p>В демонстрационном режиме установка не изменяет систему. Для настоящей загрузки открой официальный GitLab Releases.</p>
+      <div class="console" id="console">[setup] Ready.\n[setup] Waiting for user...</div>
+      <div class="progress"><span id="installProgress" style="width:0"></span></div>
+      <button class="action" id="simulateInstall">Запустить демо-установку</button>
+      <button class="action" id="back2">← Назад</button>
+      <button class="action primary" id="finishInstall" disabled>Далее →</button>
+     </section>
+     <section class="panel wizard-page" data-page="3">
+      <h2>Готово!</h2>
+      <p>Мастер завершён. Теперь можно перейти к загрузкам проекта.</p>
+      <div class="notice">Нажми кнопку ниже, чтобы открыть официальную страницу релизов SteamGlass на GitLab.</div>
+      <p><a class="action primary" href="https://gitlab.com/justiex/steamglass/-/releases" target="_blank" rel="noopener">Открыть GitLab Releases ↗</a></p>
+      <button class="action" id="restart">Пройти заново</button>
+     </section>
+    </div>
+    <aside>
+     <section class="panel"><h2>Сведения</h2><div class="console">PRODUCT: STEAMGLASS\nMODE: DEMO WIZARD\nPLATFORM: LINUX\nCHANNEL: STABLE</div></section>
+     <section class="panel"><h2>Полезные ссылки</h2><ul><li><a href="https://gitlab.com/justiex/steamglass">GitLab</a></li><li><a href="https://gitlab.com/justiex/steamglass/-/releases">Релизы</a></li><li><a href="https://gitlab.com/justiex/steamglass/-/issues">Ошибки</a></li></ul></section>
+    </aside>
+   </div>
+   <section class="panel"><h2>Дополнительная информация</h2><p>Прокручивай эту страницу вниз — здесь оставлена длинная секция, чтобы можно было проверить прокрутку и поведение окна.</p><p>Старые сайты часто были заполнены небольшими панелями, статусными строками, ссылками и декоративными блоками. Здесь сохранена такая атмосфера, но навигация работает на современных браузерах.</p><p>SteamGlass — независимый проект. Проверяй файлы перед установкой и используй только официальные релизы.</p></section>
+  </main>
+  <div class="statusbar"><span id="statusText">Ready</span><span>Ln 1, Col 1&nbsp; | &nbsp;HTML mode</span></div>
+ </div>
+ <div class="footer">SteamGlass Setup Center • Retro web experience<br><a href="https://gitlab.com/justiex/steamglass" style="color:white">GitLab project</a></div>
+</div>
+<script>
+const pages=[...document.querySelectorAll('.wizard-page')], dots=[...document.querySelectorAll('.stepdot')];
+const fill=document.getElementById('progressFill'), statusText=document.getElementById('statusText');
+let current=0, maximized=false, previousRect=null;
+function showPage(n){current=Math.max(0,Math.min(3,n));pages.forEach((p,i)=>p.classList.toggle('active',i===current));dots.forEach((d,i)=>d.classList.toggle('active',i===current));fill.style.width=((current+1)*25)+'%';statusText.textContent=['Welcome','Options selected','Installing (demo)','Finished'][current];document.getElementById('mainScroll').scrollTop=0;}
+document.querySelectorAll('.next').forEach(b=>b.addEventListener('click',()=>showPage(current+1)));
+document.getElementById('back1').onclick=()=>showPage(0);
+document.getElementById('back2').onclick=()=>showPage(1);
+document.getElementById('restart').onclick=()=>{document.getElementById('installProgress').style.width='0';document.getElementById('finishInstall').disabled=true;showPage(0)};
+document.getElementById('finishInstall').onclick=()=>showPage(3);
+document.getElementById('simulateInstall').onclick=()=>{const bar=document.getElementById('installProgress'), log=document.getElementById('console'), btn=document.getElementById('simulateInstall');btn.disabled=true;let v=0;log.textContent='[setup] Starting demo...';const timer=setInterval(()=>{v+=10;bar.style.width=v+'%';log.textContent+='\\n[setup] '+(v<100?'Preparing files... '+v+'%':'Demo complete. No files were installed.');if(v>=100){clearInterval(timer);btn.disabled=false;document.getElementById('finishInstall').disabled=false;}},160)};
+const win=document.getElementById('appWindow'), drag=document.getElementById('dragBar');
+document.getElementById('maxBtn').onclick=()=>{if(!maximized){previousRect={width:win.style.width,height:win.style.height,margin:win.style.margin};win.style.width='calc(100vw - 32px)';win.style.height='calc(100vh - 80px)';win.style.margin='0 auto';maximized=true;}else{win.style.width=previousRect?.width||'min(920px, calc(100vw - 32px))';win.style.height=previousRect?.height||'min(760px, calc(100vh - 80px))';win.style.margin=previousRect?.margin||'0 auto';maximized=false;}};
+document.getElementById('minBtn').onclick=()=>{win.style.height='40px';win.querySelector('main').style.display='none';win.querySelector('.toolbar').style.display='none';win.querySelector('.statusbar').style.display='none';};
+document.getElementById('closeBtn').onclick=()=>{win.style.display='none';document.querySelector('.footer').innerHTML='SteamGlass Setup Center закрыт. <a href="#" id="reopen" style="color:white">Открыть снова</a>';document.getElementById('reopen').onclick=e=>{e.preventDefault();win.style.display='flex';win.style.height='min(760px,calc(100vh - 80px))';win.querySelector('main').style.display='block';win.querySelector('.toolbar').style.display='block';win.querySelector('.statusbar').style.display='flex';};};
+let dragging=false,dx=0,dy=0;
+drag.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;dragging=true;dx=e.clientX-win.offsetLeft;dy=e.clientY-win.offsetTop;drag.setPointerCapture(e.pointerId)});
+drag.addEventListener('pointermove',e=>{if(!dragging)return;win.style.position='absolute';win.style.left=Math.max(0,e.clientX-dx)+'px';win.style.top=Math.max(0,e.clientY-dy)+'px';win.style.margin='0'});
+drag.addEventListener('pointerup',()=>dragging=false);drag.addEventListener('pointercancel',()=>dragging=false);
+// Deliberately subtle retro "micro-stutter" while scrolling: tiny delayed visual nudge, never blocks input.
+const scroller=document.getElementById('mainScroll');let scrollTimer=0;
+scroller.addEventListener('scroll',()=>{if(scrollTimer)return;scrollTimer=setTimeout(()=>{scroller.style.transform='translateX(1px)';requestAnimationFrame(()=>{scroller.style.transform='translateX(0)'});scrollTimer=0;},42);},{passive:true});
+
+// Resolve the newest published GitLab release and download its asset directly.
+// Prefer an Arch package; if no package is attached, download the source archive at the release tag.
+const GITLAB_RELEASE_API = 'https://gitlab.com/api/v4/projects/justiex%2Fsteamglass/releases/permalink/latest';
+const releaseStatus = document.getElementById('releaseStatus');
+const downloadButton = document.getElementById('downloadLatest');
+let latestRelease = null;
+async function fetchLatestRelease(){
+  releaseStatus.textContent = 'Подключаемся к GitLab…';
+  downloadButton.disabled = true;
+  try{
+    const response = await fetch(GITLAB_RELEASE_API, {headers:{'Accept':'application/json'}, cache:'no-store'});
+    if(!response.ok) throw new Error('GitLab API: HTTP '+response.status);
+    const release = await response.json();
+    if(!release || !release.tag_name) throw new Error('В ответе GitLab нет тега релиза');
+    latestRelease = release;
+    const links = (release.assets && release.assets.links) ? release.assets.links : [];
+    const packageAsset = links.find(a => /\.pkg\.tar\.zst(?:$|\?)/i.test(a.name || '') || /\.pkg\.tar\.zst(?:$|\?)/i.test(a.url || ''));
+    const tarAsset = links.find(a => /\.tar\.gz(?:$|\?)/i.test(a.name || '') || /\.tar\.gz(?:$|\?)/i.test(a.url || ''));
+    const asset = packageAsset || tarAsset;
+    releaseStatus.textContent = 'Последняя версия: '+release.tag_name+' — '+(asset ? ('найден файл '+(asset.name || 'релиза')) : 'готов архив исходников');
+    downloadButton.disabled = false;
+  }catch(error){
+    latestRelease = null;
+    releaseStatus.textContent = 'Не удалось получить релиз: '+error.message+'. Проверь подключение или открой GitLab Releases.';
+    downloadButton.disabled = true;
+  }
+}
+downloadButton.addEventListener('click', async ()=>{
+  if(!latestRelease) await fetchLatestRelease();
+  if(!latestRelease) return;
+  const links = (latestRelease.assets && latestRelease.assets.links) ? latestRelease.assets.links : [];
+  const packageAsset = links.find(a => /\.pkg\.tar\.zst(?:$|\?)/i.test(a.name || '') || /\.pkg\.tar\.zst(?:$|\?)/i.test(a.url || ''));
+  const tarAsset = links.find(a => /\.tar\.gz(?:$|\?)/i.test(a.name || '') || /\.tar\.gz(?:$|\?)/i.test(a.url || ''));
+  const asset = packageAsset || tarAsset;
+  const url = asset && asset.direct_asset_url ? asset.direct_asset_url :
+              asset && asset.url ? asset.url :
+              'https://gitlab.com/justiex/steamglass/-/archive/'+encodeURIComponent(latestRelease.tag_name)+'/steamglass-'+encodeURIComponent(latestRelease.tag_name)+'.tar.gz';
+  // Navigate to the actual file URL; GitLab redirects to the asset storage when needed.
+  window.location.assign(url);
+});
+fetchLatestRelease();
+
+</script>
+</body>
+</html>
