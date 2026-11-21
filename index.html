@@ -42,6 +42,61 @@
      position: relative;
      isolation: isolate
    }
+   .desktop-shortcuts {
+     position: absolute;
+     top: 14px;
+     left: 14px;
+     z-index: 1;
+     display: grid;
+     grid-template-columns: repeat(auto-fill, 86px);
+     grid-auto-rows: 96px;
+     gap: 6px;
+     width: min(272px, calc(100% - 28px));
+     align-content: start;
+     justify-content: start;
+   }
+   .desktop-shortcut {
+     appearance: none;
+     width: 86px;
+     min-height: 96px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: flex-start;
+     gap: 5px;
+     padding: 7px 4px 5px;
+     border: 1px solid transparent;
+     background: transparent;
+     color: #fff;
+     font: 12px Tahoma, Verdana, Arial, sans-serif;
+     text-align: center;
+     text-shadow: 1px 1px 2px #000;
+     cursor: pointer;
+   }
+   .desktop-shortcut img {
+     width: 48px;
+     height: 48px;
+     object-fit: contain;
+     image-rendering: auto;
+     filter: drop-shadow(1px 2px 1px #222);
+     pointer-events: none;
+   }
+   .desktop-shortcut span {
+     max-width: 78px;
+     padding: 2px 3px;
+     line-height: 1.2;
+     overflow-wrap: anywhere;
+     pointer-events: none;
+   }
+   .desktop-shortcut:hover,
+   .desktop-shortcut:focus-visible {
+     border: 1px dotted #fff;
+     background: rgba(0, 0, 128, .35);
+     outline: none;
+   }
+   .desktop-shortcut:active {
+     background: rgba(0, 0, 0, .28);
+   }
    .window {
      width: min(920px,calc(100vw - 32px));
      min-width: 300px;
@@ -669,6 +724,7 @@
  </head>
  <body>
   <div class="desktop" id="desktop">
+   <div aria-label="Desktop shortcuts" class="desktop-shortcuts" id="desktopShortcuts"></div>
    <div class="window" id="appWindow">
     <div class="titlebar" id="dragBar">
      <span class="caption">
@@ -707,21 +763,6 @@
       </div>
      </section>
      <nav aria-label="Project links" class="quick-links">
-      <a
-       class="quick-link"
-       href="https://www.mozilla.org/firefox/new/"
-       rel="noopener noreferrer"
-       target="_blank"
-       title="Get Firefox from the official Mozilla website"
-      >
-       <img
-        alt=""
-        height="27"
-        src="assets/firefox-2004.png"
-        width="27"
-       />
-       <span>GET FIREFOX</span>
-      </a>
       <a
        class="quick-link donate-link"
        href="https://boosty.to/hobbyhorser"
@@ -1129,15 +1170,31 @@
   };
   document.getElementById('closeBtn').onclick=()=> {
     win.style.display='none';
+
+    const shortcuts=document.getElementById('desktopShortcuts');
+    if (shortcuts.querySelector('.desktop-shortcut')) return;
+
     const reopen=document.createElement('button');
-    reopen.className='action primary';
-    reopen.textContent='Open SteamGlass Setup';
-    reopen.style.cssText='position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:30';
+    reopen.type='button';
+    reopen.className='desktop-shortcut';
+    reopen.setAttribute('aria-label', 'Open SteamGlass Setup');
+    reopen.title='Open SteamGlass Setup';
+
+    const icon=document.createElement('img');
+    icon.src='assets/firefox-2004.png';
+    icon.alt='';
+    icon.draggable=false;
+
+    const label=document.createElement('span');
+    label.textContent='SteamGlass Setup';
+
+    reopen.append(icon, label);
     reopen.onclick=()=> {
       win.style.display='flex';
       reopen.remove();
     };
-    desktop.appendChild(reopen);
+
+    shortcuts.appendChild(reopen);
   };
   // DOS-inspired dragging: pixel-step movement and a long monochrome afterimage trail.
   function addGhost(rect) {
