@@ -1,0 +1,12 @@
+{
+  "name": "steamglass-vps",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SteamGlass classic Linux desktop web app and lightweight Node.js host",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

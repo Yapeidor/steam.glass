@@ -1,0 +1,17 @@
+[Unit]
+Description=SteamGlass Node.js web server
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/steamglass
+ExecStart=/usr/bin/node /opt/steamglass/server.js
+Restart=on-failure
+RestartSec=4
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=3000
+
+[Install]
+WantedBy=multi-user.target

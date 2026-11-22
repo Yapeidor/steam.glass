@@ -1,0 +1,1280 @@
+:root {
+     --gray: #c0c0c0;
+     --blue: #000080;
+     --white: #fff;
+     --shadow: #404040;
+     --teal: #008080
+   }
+   * {
+     box-sizing: border-box
+   }
+   html {
+     background: var(--teal)
+   }
+   body {
+     margin: 0;
+     background: var(--teal);
+     color: #111;
+     font: 14px Tahoma,Verdana,Arial,sans-serif;
+     min-height: 100vh;
+     overflow-x: hidden
+   }
+   a {
+     color: #00e;
+     text-decoration: underline
+   }
+   .desktop {
+     min-height: 100vh;
+     padding: 28px 16px 44px;
+     background-color: #008080;
+     background-image: radial-gradient(#ffffff22 1px,transparent 1px);
+     background-size: 4px 4px;
+     position: relative;
+     isolation: isolate
+   }
+   .desktop-shortcuts {
+     position: absolute;
+     top: 14px;
+     left: 14px;
+     z-index: 1;
+     display: grid;
+     grid-template-columns: repeat(auto-fill, 86px);
+     grid-auto-rows: 96px;
+     gap: 6px;
+     width: min(272px, calc(100% - 28px));
+     align-content: start;
+     justify-content: start;
+   }
+   .desktop-shortcut {
+     appearance: none;
+     width: 86px;
+     min-height: 96px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: flex-start;
+     gap: 5px;
+     padding: 7px 4px 5px;
+     border: 1px solid transparent;
+     background: transparent;
+     color: #fff;
+     font: 12px Tahoma, Verdana, Arial, sans-serif;
+     text-align: center;
+     text-shadow: 1px 1px 2px #000;
+     cursor: pointer;
+   }
+   .desktop-shortcut img {
+     width: 48px;
+     height: 48px;
+     object-fit: contain;
+     image-rendering: auto;
+     filter: drop-shadow(1px 2px 1px #222);
+     pointer-events: none;
+   }
+   .desktop-shortcut span {
+     max-width: 78px;
+     padding: 2px 3px;
+     line-height: 1.2;
+     overflow-wrap: anywhere;
+     pointer-events: none;
+   }
+   .desktop-shortcut:hover,
+   .desktop-shortcut:focus-visible {
+     border: 1px dotted #fff;
+     background: rgba(0, 0, 128, .35);
+     outline: none;
+   }
+   .desktop-shortcut:active {
+     background: rgba(0, 0, 0, .28);
+   }
+   .window {
+     width: min(920px,calc(100vw - 32px));
+     min-width: 300px;
+     max-width: calc(100vw - 20px);
+     height: min(760px,calc(100vh - 80px));
+     min-height: 430px;
+     max-height: calc(100vh - 32px);
+     margin: 0 auto;
+     background: var(--gray);
+     border: 2px solid;
+     border-color: #fff #404040 #404040 #fff;
+     box-shadow: 5px 5px 0 #004747;
+     display: flex;
+     flex-direction: column;
+     resize: both;
+     overflow: hidden;
+     position: relative;
+     z-index: 2
+   }
+   .titlebar {
+     height: 30px;
+     flex: 0 0 30px;
+     background: linear-gradient(90deg,#000080,#1084d0);
+     color: #fff;
+     font-weight: bold;
+     padding: 5px 7px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     cursor: move;
+     user-select: none;
+     touch-action: none
+   }
+   .titlebar .caption {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     min-width: 0
+   }
+   .titlebar .caption span {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap
+   }
+   .titlebar img {
+     width: 18px;
+     height: 18px;
+     object-fit: contain;
+     background: #fff;
+     flex: 0 0 auto
+   }
+   .controls {
+     display: flex;
+     gap: 3px;
+     flex: 0 0 auto
+   }
+   .controls button {
+     width: 20px;
+     height: 19px;
+     padding: 0;
+     background: #c0c0c0;
+     border: 1px solid;
+     border-color: #fff #404040 #404040 #fff;
+     font: bold 12px Arial;
+     line-height: 15px;
+     cursor: pointer
+   }
+   .toolbar {
+     height: 29px;
+     flex: 0 0 29px;
+     padding: 6px 10px;
+     border-bottom: 1px solid #808080;
+     background: #d4d0c8
+   }
+   main {
+     padding: 17px;
+     overflow: auto;
+     flex: 1;
+     scrollbar-color: #c0c0c0 #e5e5e5;
+     scrollbar-width: thin
+   }
+   .hero {
+     display: flex;
+     gap: 17px;
+     align-items: center;
+     padding: 13px;
+     background: #d4d0c8;
+     border: 2px groove #fff
+   }
+   .logo {
+     width: 76px;
+     height: 76px;
+     object-fit: contain;
+     background: #fff;
+     border: 2px inset #fff;
+     padding: 3px;
+     flex: 0 0 auto
+   }
+   h1 {
+     font-size: 25px;
+     margin: 0 0 6px;
+     color: #000080
+   }
+   h2 {
+     font-size: 17px;
+     color: #000080;
+     margin: 0 0 11px;
+     border-bottom: 1px solid #808080;
+     padding-bottom: 6px
+   }
+   p {
+     line-height: 1.55
+   }
+   .tag {
+     display: inline-block;
+     background: #ffffcc;
+     border: 1px solid #999;
+     padding: 3px 7px;
+     font-size: 11px;
+     margin-top: 5px
+   }
+   .layout {
+     display: grid;
+     grid-template-columns: 1fr 225px;
+     gap: 14px;
+     margin-top: 15px
+   }
+   .panel {
+     background: #d4d0c8;
+     border: 2px groove #fff;
+     padding: 13px;
+     margin-bottom: 13px
+   }
+   .quick-links {
+     width: min(100%, 570px);
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-wrap: wrap;
+     gap: 10px;
+     margin: 12px 0 2px;
+   }
+   .quick-link {
+     min-height: 40px;
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     gap: 8px;
+     padding: 7px 13px;
+     background: #d4d0c8;
+     border: 2px solid;
+     border-color: #fff #404040 #404040 #fff;
+     color: #111;
+     font: bold 12px "Courier New", monospace;
+     text-decoration: none;
+     letter-spacing: .2px;
+     box-shadow: inset 1px 1px #dfdfdf;
+   }
+   .quick-link:hover {
+     background: #e5e5e5;
+   }
+   .quick-link:active {
+     border-color: #404040 #fff #fff #404040;
+     transform: translate(1px, 1px);
+   }
+   .quick-link img {
+     display: block;
+     width: 25px;
+     height: 25px;
+     object-fit: contain;
+     flex: 0 0 auto;
+   }
+   .quick-link .heart {
+     font: 18px Arial, sans-serif;
+     line-height: 1;
+   }
+   .donate-address {
+     width: min(100%, 570px);
+     margin: 0 0 6px;
+     text-align: center;
+     font: 11px "Courier New", monospace;
+   }
+   .donate-address a {
+     color: #333;
+     text-decoration: underline;
+   }
+   .donate-address a:hover {
+     color: #000080;
+   }
+   .steps {
+     display: flex;
+     gap: 5px;
+     flex-wrap: wrap;
+     margin: 12px 0
+   }
+   .stepdot {
+     padding: 5px 8px;
+     background: #c0c0c0;
+     border: 1px solid #888;
+     color: #555;
+     font-size: 12px
+   }
+   .stepdot.active {
+     background: #000080;
+     color: #fff;
+     border: 1px solid #fff
+   }
+   .progress {
+     height: 16px;
+     border: 2px inset #888;
+     background: #eee;
+     padding: 2px;
+     margin: 10px 0
+   }
+   .progress span {
+     display: block;
+     height: 100%;
+     width: 20%;
+     background: repeating-linear-gradient(90deg,#000080 0 12px,#1084d0 12px 14px);
+     transition: width .35s steps(5,end)
+   }
+   .action {
+     display: inline-block;
+     padding: 8px 14px;
+     margin: 5px 5px 0 0;
+     background: #c0c0c0;
+     border: 2px solid;
+     border-color: #fff #404040 #404040 #fff;
+     color: #111;
+     text-decoration: none;
+     font-weight: bold;
+     cursor: pointer;
+     font-family: inherit
+   }
+   .action:active {
+     border-color: #404040 #fff #fff #404040;
+     transform: translate(1px,1px)
+   }
+   .action.primary {
+     background: #d6d6d6;
+     color: #000080
+   }
+   .action:disabled {
+     color: #777;
+     cursor: not-allowed;
+     filter: grayscale(1)
+   }
+   .field {
+     display: block;
+     width: 100%;
+     padding: 7px;
+     background: #fff;
+     border: 2px inset #888;
+     font: 14px Tahoma;
+     margin: 7px 0 12px
+   }
+   .notice {
+     background: #ffffcc;
+     border: 1px solid #b7a65a;
+     padding: 9px;
+     line-height: 1.5
+   }
+   .console {
+     background: #111;
+     color: #00ff66;
+     font: 12px "Courier New",monospace;
+     padding: 10px;
+     min-height: 90px;
+     white-space: pre-wrap;
+     border: 2px inset #888;
+     line-height: 1.55;
+     overflow-wrap: anywhere
+   }
+   ul {
+     padding-left: 20px;
+     line-height: 1.8
+   }
+   .wizard-page {
+     display: none;
+     min-height: 270px
+   }
+   .wizard-page.active {
+     display: block;
+     animation: pageIn .18s steps(3,end)
+   }
+   @keyframes pageIn {
+     from {
+       opacity: .78;
+       transform: translateX(3px)
+     }
+     to {
+       opacity: 1;
+       transform: translateX(0)
+     }
+   }
+   .statusbar {
+     height: 25px;
+     flex: 0 0 25px;
+     border-top: 1px solid #fff;
+     box-shadow: inset 0 1px #888;
+     padding: 5px 9px;
+     font-size: 11px;
+     display: flex;
+     justify-content: space-between;
+     gap: 8px
+   }
+   .statusbar span {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap
+   }
+   .footer {
+     text-align: center;
+     color: #eaffff;
+     padding: 13px;
+     font-size: 12px;
+     line-height: 1.8
+   }
+   .crt-overlay {
+     position: fixed;
+     inset: 0;
+     z-index: 20;
+     pointer-events: none;
+     opacity: 0.16;
+     background:
+     repeating-linear-gradient(
+     to bottom,
+     transparent 0 2px,
+     rgba(0, 0, 0, 0.2) 3px 4px
+     ),
+     radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+     background-size: auto, 4px 4px;
+     mix-blend-mode: multiply;
+   }
+   .dos-ghost {
+     position: fixed;
+     z-index: 10;
+     pointer-events: none;
+     border: 1px solid rgba(255, 255, 255, 0.95);
+     outline: 1px dashed rgba(0, 0, 0, 0.9);
+     background: rgba(0, 0, 0, 0.035);
+     box-shadow:
+     inset 0 0 0 1px rgba(0, 0, 0, 0.55),
+     2px 2px 0 rgba(255, 255, 255, 0.28);
+     filter: grayscale(1);
+     animation: ghostFade 860ms steps(9, end) forwards;
+   }
+   .dos-ghost::before {
+     content: "C:\\> STEAMGLASS.EXE";
+     position: absolute;
+     top: 5px;
+     left: 7px;
+     padding: 2px 6px;
+     color: #fff;
+     background: #000;
+     font: bold 10px "Courier New", monospace;
+     letter-spacing: 0;
+     white-space: nowrap;
+     text-shadow: none;
+   }
+   .dos-ghost::after {
+     content: "";
+     position: absolute;
+     inset: 29px 6px 6px;
+     border: 1px dotted rgba(0, 0, 0, 0.5);
+     border-top: 1px dashed rgba(255, 255, 255, 0.85);
+     box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.35);
+   }
+   @keyframes ghostFade {
+     0% {
+       opacity: 0.86;
+       transform: translate(0, 0);
+     }
+     28% {
+       opacity: 0.62;
+     }
+     65% {
+       opacity: 0.28;
+     }
+     100% {
+       opacity: 0;
+       transform: translate(0, 0);
+     }
+   }
+   body.is-dragging .window {
+     filter: grayscale(1) contrast(1.12);
+     box-shadow: 5px 5px 0 #000, 0 0 0 1px #fff;
+   }
+   body.is-dragging .titlebar {
+     color: #fff;
+     background: #000;
+     background-image: repeating-linear-gradient(
+     0deg,
+     transparent 0 5px,
+     rgba(255, 255, 255, 0.13) 6px 7px
+     );
+   }
+   body.is-dragging main {
+     text-shadow: none;
+   }
+   body.is-dragging .crt-overlay {
+     opacity: 0.28;
+   }
+   body.minimized .window {
+     resize: none
+   }
+   @media(max-width:700px) {
+     .layout {
+       grid-template-columns: 1fr
+     }
+     .window {
+       height: calc(100vh - 36px);
+       min-height: 400px
+     }
+     .desktop {
+       padding: 10px 0
+     }
+     .hero {
+       align-items: flex-start
+     }
+     .logo {
+       width: 58px;
+       height: 58px
+     }
+     h1 {
+       font-size: 21px
+     }
+     main {
+       padding: 10px
+     }
+     .toolbar {
+       font-size: 12px
+     }
+     .steps {
+       gap: 3px
+     }
+     .stepdot {
+       padding: 5px 6px;
+       font-size: 11px
+     }
+   }
+   @media(prefers-reduced-motion:reduce) {
+     *,*:before,*:after {
+       animation-duration: .01ms!important;
+       animation-iteration-count: 1!important;
+       scroll-behavior: auto!important;
+       transition-duration: .01ms!important
+     }
+   }
+
+   /* A compact, centered installer inspired by late- DOS desktop software. */
+   .desktop {
+     min-height: 100vh;
+     padding: 28px 14px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+   .window {
+     width: min(760px, calc(100vw - 28px));
+     height: min(650px, calc(100vh - 56px));
+     min-height: 420px;
+     margin: 0;
+     resize: none;
+   }
+   .titlebar {
+     background: #000080;
+     justify-content: space-between;
+   }
+   .titlebar img {
+     image-rendering: auto;
+   }
+   main {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 24px 28px;
+   }
+   .hero {
+     width: min(100%, 570px);
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     gap: 10px;
+     text-align: center;
+     padding: 20px 18px;
+     background: #c0c0c0;
+     border: 1px solid #fff;
+     box-shadow: inset 1px 1px #808080, inset -1px -1px #dfdfdf;
+   }
+   .logo {
+     width: 64px;
+     height: 64px;
+     padding: 2px;
+     border: 1px solid #808080;
+     background: #c0c0c0;
+   }
+   h1 {
+     margin: 0;
+     font-family: "Courier New", monospace;
+     font-size: 24px;
+     letter-spacing: 1px;
+     color: #000;
+   }
+   .hero p {
+     margin: 5px 0 0 !important;
+     font-size: 13px;
+   }
+   .tag {
+     margin-top: 3px;
+     background: transparent;
+     border: 1px solid #808080;
+     color: #222;
+     letter-spacing: .5px;
+   }
+   .steps {
+     width: min(100%, 570px);
+     justify-content: center;
+     margin: 17px 0 9px;
+   }
+   .stepdot {
+     padding: 5px 9px;
+     background: #c0c0c0;
+     border: 1px solid #888;
+     font-family: "Courier New", monospace;
+   }
+   .progress {
+     width: min(100%, 570px);
+     margin: 0 0 17px;
+   }
+   .layout {
+     display: block;
+     width: min(100%, 570px);
+     margin: 0;
+   }
+   .panel {
+     margin: 0;
+     padding: 18px;
+     background: #c0c0c0;
+     border: 1px solid #fff;
+     box-shadow: inset 1px 1px #808080, inset -1px -1px #dfdfdf;
+   }
+   .wizard-page {
+     min-height: 250px;
+   }
+   .wizard-page h2 {
+     text-align: center;
+     font-family: "Courier New", monospace;
+     font-size: 16px;
+     color: #000;
+     border-bottom: 1px solid #808080;
+     padding-bottom: 10px;
+   }
+   .wizard-page > p,
+   .wizard-page > .notice,
+   .wizard-page > .console {
+     max-width: 490px;
+     margin-left: auto;
+     margin-right: auto;
+   }
+   .wizard-page > p:last-child {
+     text-align: center;
+     margin-top: 20px;
+   }
+   .wizard-page > .action,
+   .wizard-page > p .action {
+     margin-top: 8px;
+   }
+   .notice {
+     background: #e5e5e5;
+     border: 1px solid #888;
+     color: #222;
+   }
+   .console {
+     background: #000;
+     color: #c0c0c0;
+     border: 1px solid #555;
+     font-family: "Courier New", monospace;
+   }
+   .action {
+     min-width: 112px;
+     font-family: "Courier New", monospace;
+     font-size: 12px;
+   }
+   .action.primary {
+     background: #d4d0c8;
+     color: #000;
+   }
+   .statusbar,
+   .toolbar,
+   .footer,
+   aside,
+   .layout > aside {
+     display: none !important;
+   }
+   @media (max-width: 700px) {
+     .desktop {
+       padding: 10px 0;
+     }
+     .window {
+       width: calc(100vw - 16px);
+       height: calc(100vh - 20px);
+       min-height: 400px;
+     }
+     main {
+       padding: 14px 10px;
+     }
+     .hero {
+       padding: 14px 10px;
+     }
+     .steps {
+       gap: 3px;
+     }
+     .stepdot {
+       padding: 5px 6px;
+       font-size: 10px;
+     }
+     .panel {
+       padding: 13px;
+     }
+   }
+
+
+   /* Classic Linux desktop skin: GNOME 2 / GTK 2 era, not a Windows imitation. */
+   :root {
+     --linux-panel: #343b3f;
+     --linux-panel-light: #59656b;
+     --linux-blue: #426b8a;
+     --linux-blue-dark: #294b65;
+     --linux-window: #d7d9d8;
+     --linux-face: #e7e8e6;
+     --linux-edge: #7b8384;
+     --linux-text: #202426;
+   }
+
+   html,
+   body {
+     background: #536e73;
+   }
+
+   body {
+     color: var(--linux-text);
+     font-family: "DejaVu Sans", "Liberation Sans", Tahoma, sans-serif;
+   }
+
+   .desktop {
+     min-height: 100vh;
+     padding: 48px 14px 42px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background-color: #536e73;
+     background-image:
+       radial-gradient(ellipse at 20% 18%, rgba(255,255,255,.12), transparent 34%),
+       radial-gradient(ellipse at 78% 82%, rgba(12,35,43,.2), transparent 42%),
+       repeating-linear-gradient(135deg, rgba(255,255,255,.025) 0 1px, transparent 1px 5px);
+     isolation: isolate;
+   }
+
+   .linux-top-panel,
+   .linux-bottom-panel {
+     position: fixed;
+     left: 0;
+     right: 0;
+     z-index: 25;
+     display: flex;
+     align-items: center;
+     color: #f0f1ed;
+     background: linear-gradient(#535d61, #343b3f 55%, #2a3033);
+     border-color: #778185 #202629 #202629 #778185;
+     box-shadow: 0 1px 2px rgba(0,0,0,.35);
+     font-size: 12px;
+     user-select: none;
+   }
+
+   .linux-top-panel {
+     top: 0;
+     height: 34px;
+     padding: 3px 8px;
+     gap: 4px;
+     border-bottom: 1px solid #1d2528;
+   }
+
+   .panel-menu-button,
+   .panel-menu-link {
+     min-height: 25px;
+     display: inline-flex;
+     align-items: center;
+     padding: 3px 10px;
+     border: 1px solid transparent;
+     border-radius: 3px;
+     color: #f1f2ee;
+     background: transparent;
+     font: bold 12px "DejaVu Sans", "Liberation Sans", sans-serif;
+     text-decoration: none;
+     cursor: pointer;
+   }
+
+   .panel-menu-button:hover,
+   .panel-menu-link:hover,
+   .panel-menu-button:focus-visible,
+   .panel-menu-link:focus-visible {
+     border-color: #859196 #263035 #263035 #859196;
+     background: linear-gradient(#68757a, #465257);
+     outline: none;
+   }
+
+   .panel-app-name {
+     margin-left: 12px;
+     color: #c7cecc;
+     font: 11px "DejaVu Sans", sans-serif;
+     letter-spacing: .15px;
+   }
+
+   .panel-spacer {
+     flex: 1;
+   }
+
+   .panel-indicator {
+     color: #9ec58f;
+     font-size: 10px;
+     text-shadow: 0 0 4px #a6dc91;
+   }
+
+   .panel-clock {
+     min-width: 48px;
+     padding: 4px 8px;
+     border: 1px solid #242b2e;
+     border-radius: 2px;
+     background: #252b2e;
+     color: #e1e5df;
+     text-align: center;
+     font: 11px "DejaVu Sans Mono", "Liberation Mono", monospace;
+   }
+
+   .linux-bottom-panel {
+     bottom: 0;
+     height: 34px;
+     padding: 3px 7px;
+     gap: 7px;
+     border-top: 1px solid #798286;
+   }
+
+   .taskbar-window-button {
+     height: 26px;
+     min-width: 170px;
+     max-width: min(300px, 55vw);
+     display: inline-flex;
+     align-items: center;
+     gap: 7px;
+     padding: 3px 9px;
+     border: 1px solid #20282c;
+     border-radius: 3px;
+     background: linear-gradient(#68757a, #465156);
+     box-shadow: inset 1px 1px rgba(255,255,255,.15);
+     color: #fff;
+     text-align: left;
+     font: 11px "DejaVu Sans", sans-serif;
+     cursor: pointer;
+   }
+
+   .taskbar-window-button img {
+     width: 17px;
+     height: 17px;
+     object-fit: contain;
+     background: #eee;
+   }
+
+   .taskbar-window-button:hover {
+     background: linear-gradient(#77858a, #536167);
+   }
+
+   .taskbar-window-button:active {
+     background: #30383c;
+     box-shadow: inset 1px 1px 2px #111;
+   }
+
+   .workspace-switcher {
+     display: flex;
+     gap: 2px;
+     margin-left: auto;
+     padding: 2px;
+     border: 1px solid #222a2d;
+     border-radius: 3px;
+     background: #252c2f;
+   }
+
+   .workspace {
+     width: 20px;
+     height: 20px;
+     padding: 0;
+     border: 1px solid #687377;
+     border-radius: 2px;
+     background: #485257;
+     color: #dce1de;
+     font: 10px "DejaVu Sans Mono", monospace;
+   }
+
+   .workspace.active {
+     border-color: #a4b8c2;
+     background: #6b8ca0;
+     color: #fff;
+     box-shadow: inset 0 0 0 1px #45677c;
+   }
+
+   .workspace:disabled {
+     opacity: .55;
+   }
+
+   .desktop-shortcuts {
+     top: 46px;
+     left: 10px;
+     width: 94px;
+     grid-template-columns: 86px;
+     grid-auto-rows: 92px;
+     gap: 4px;
+   }
+
+   .desktop-shortcut {
+     border-radius: 3px;
+     color: #fff;
+     font-family: "DejaVu Sans", "Liberation Sans", sans-serif;
+     text-shadow: 1px 1px 2px #172326;
+   }
+
+   .desktop-shortcut img {
+     width: 48px;
+     height: 48px;
+     filter: drop-shadow(1px 2px 2px rgba(0,0,0,.45));
+   }
+
+   .desktop-shortcut:hover,
+   .desktop-shortcut:focus-visible {
+     border: 1px dotted rgba(255,255,255,.9);
+     border-radius: 3px;
+     background: rgba(70,105,128,.42);
+   }
+
+   .window {
+     width: min(760px, calc(100vw - 32px));
+     height: min(650px, calc(100vh - 96px));
+     min-height: 420px;
+     background: var(--linux-window);
+     border: 1px solid #20282c;
+     border-radius: 5px 5px 2px 2px;
+     box-shadow: 0 8px 24px rgba(10,20,24,.38), 0 1px 0 rgba(255,255,255,.55) inset;
+     overflow: hidden;
+   }
+
+   .titlebar {
+     height: 32px;
+     flex-basis: 32px;
+     padding: 4px 7px;
+     background: linear-gradient(#7895a8, #52748d 48%, #3c617a);
+     border-bottom: 1px solid #29495e;
+     color: #fff;
+     text-shadow: 0 1px 1px rgba(0,0,0,.5);
+     cursor: move;
+   }
+
+   .titlebar .caption {
+     gap: 7px;
+   }
+
+   .titlebar img {
+     width: 19px;
+     height: 19px;
+     padding: 1px;
+     border: 1px solid rgba(255,255,255,.35);
+     border-radius: 3px;
+     background: rgba(255,255,255,.9);
+   }
+
+   .controls {
+     gap: 3px;
+   }
+
+   .controls button {
+     width: 21px;
+     height: 20px;
+     border: 1px solid #d6e0e5;
+     border-radius: 3px;
+     background: linear-gradient(#e6ebed, #aebdc4);
+     box-shadow: inset 1px 1px rgba(255,255,255,.9), 0 1px 1px rgba(0,0,0,.2);
+     color: #273b47;
+     line-height: 15px;
+   }
+
+   .controls button:hover {
+     background: linear-gradient(#fff, #c5d4da);
+   }
+
+   main {
+     padding: 20px 24px;
+     background: linear-gradient(#e7e9e7, #d5d9d7);
+     scrollbar-color: #879da6 #d9dfdd;
+   }
+
+   .hero {
+     background: #e2e5e3;
+     border: 1px solid #a1aaa8;
+     border-radius: 4px;
+     box-shadow: inset 0 1px #fff, 0 1px 2px rgba(0,0,0,.08);
+     padding: 16px;
+   }
+
+   .logo {
+     border: 1px solid #a4adab;
+     border-radius: 4px;
+     background: #f5f6f4;
+   }
+
+   h1 {
+     color: #365b72;
+     font-family: "DejaVu Sans", "Liberation Sans", sans-serif;
+     font-size: 23px;
+     letter-spacing: -.4px;
+   }
+
+   h2 {
+     color: #365b72;
+     font-family: "DejaVu Sans", "Liberation Sans", sans-serif;
+   }
+
+   .tag {
+     background: #dce6e8;
+     border: 1px solid #a8b8bd;
+     border-radius: 3px;
+     color: #385663;
+     font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+   }
+
+   .steps {
+     gap: 4px;
+   }
+
+   .stepdot {
+     padding: 5px 8px;
+     border: 1px solid #a2aaa8;
+     border-radius: 3px;
+     background: linear-gradient(#eceeec, #d4d8d6);
+     color: #555e5f;
+     font-size: 11px;
+   }
+
+   .stepdot.active {
+     border-color: #3b6179;
+     background: linear-gradient(#6f8fa2, #4d7188);
+     color: #fff;
+   }
+
+   .panel {
+     background: #e1e4e2;
+     border: 1px solid #a1aaa8;
+     border-radius: 4px;
+     box-shadow: inset 0 1px #fff, 0 1px 2px rgba(0,0,0,.06);
+   }
+
+   .wizard-page h2 {
+     color: #365b72;
+     font-family: "DejaVu Sans", "Liberation Sans", sans-serif;
+   }
+
+   .notice {
+     background: #edf0ee;
+     border: 1px solid #b2bcba;
+     border-radius: 3px;
+   }
+
+   .progress {
+     border: 1px solid #85928f;
+     border-radius: 3px;
+     background: #f1f3f1;
+     padding: 2px;
+   }
+
+   .progress span {
+     border-radius: 1px;
+     background: repeating-linear-gradient(90deg, #4c7894 0 10px, #87a8b9 10px 12px);
+   }
+
+   .action,
+   .quick-link {
+     border: 1px solid #84918f;
+     border-radius: 3px;
+     background: linear-gradient(#f4f5f3, #d0d6d3);
+     box-shadow: inset 0 1px rgba(255,255,255,.95), 0 1px 1px rgba(0,0,0,.12);
+     color: #263a43;
+     font-family: "DejaVu Sans", "Liberation Sans", sans-serif;
+   }
+
+   .action:hover,
+   .quick-link:hover {
+     border-color: #607d8a;
+     background: linear-gradient(#fff, #dae5e5);
+   }
+
+   .action.primary {
+     border-color: #476b81;
+     background: linear-gradient(#7898aa, #52778f);
+     color: #fff;
+     text-shadow: 0 1px rgba(0,0,0,.25);
+   }
+
+   .action.primary:hover {
+     background: linear-gradient(#88a8b8, #5d8298);
+   }
+
+   .action:active,
+   .quick-link:active {
+     border-color: #516a77;
+     background: #c6d0d0;
+     box-shadow: inset 1px 1px 2px rgba(0,0,0,.2);
+     transform: translateY(1px);
+   }
+
+   .console {
+     background: #172225;
+     color: #b9d9bf;
+     border: 1px solid #42575c;
+     border-radius: 3px;
+     box-shadow: inset 0 1px 4px rgba(0,0,0,.45);
+   }
+
+   .quick-link img {
+     width: 24px;
+     height: 24px;
+   }
+
+   .donate-address a {
+     color: #355c72;
+   }
+
+   .crt-overlay {
+     opacity: .035;
+     mix-blend-mode: soft-light;
+   }
+
+   /* X11-style monochrome outline afterimages during window movement. */
+   .dos-ghost {
+     border: 1px dashed rgba(245,248,246,.88);
+     outline: 1px solid rgba(25,35,38,.8);
+     border-radius: 2px;
+     background: rgba(25,35,38,.07);
+     box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);
+     filter: grayscale(1);
+   }
+
+   .dos-ghost::before {
+     content: none;
+   }
+
+   .dos-ghost::after {
+     inset: 5px;
+     border: 1px dotted rgba(35,48,52,.5);
+     border-top: 1px dotted rgba(255,255,255,.65);
+     box-shadow: none;
+   }
+
+   body.is-dragging .window {
+     filter: grayscale(1) contrast(1.06);
+     box-shadow: 0 8px 24px rgba(0,0,0,.4), 0 0 0 1px #fff;
+   }
+
+   body.is-dragging .titlebar {
+     background: #49565b;
+   }
+
+   body.is-dragging .crt-overlay {
+     opacity: .07;
+   }
+
+   @media (max-width: 700px) {
+     .desktop {
+       padding: 42px 0;
+     }
+     .linux-top-panel {
+       height: 32px;
+       padding: 2px 4px;
+       gap: 1px;
+     }
+     .panel-menu-button,
+     .panel-menu-link {
+       padding: 3px 7px;
+       font-size: 10px;
+     }
+     .panel-app-name {
+       display: none;
+     }
+     .linux-bottom-panel {
+       height: 32px;
+     }
+     .taskbar-window-button {
+       min-width: 0;
+       flex: 1;
+     }
+     .window {
+       width: calc(100vw - 14px);
+       height: calc(100vh - 80px);
+       min-height: 380px;
+     }
+     main {
+       padding: 13px 10px;
+     }
+     .hero {
+       padding: 12px 8px;
+     }
+     .workspace-switcher {
+       margin-left: 0;
+     }
+     .desktop-shortcuts {
+       top: 39px;
+       left: 4px;
+     }
+   }
+
+
+/* Small GTK-style system monitor opened from the top panel. */
+.system-popover {
+  position: absolute;
+  top: 38px;
+  right: 10px;
+  z-index: 40;
+  width: min(330px, calc(100vw - 20px));
+  padding: 10px;
+  border: 1px solid #242d31;
+  border-radius: 4px;
+  background: linear-gradient(#e9ecea, #d7dcda);
+  box-shadow: 0 5px 18px rgba(0,0,0,.38), inset 0 1px #fff;
+  color: #20282b;
+}
+
+.system-popover[hidden] {
+  display: none;
+}
+
+.system-popover-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #adb7b4;
+  color: #365b72;
+  font-size: 12px;
+}
+
+.system-popover-heading button {
+  width: 22px;
+  height: 21px;
+  border: 1px solid #87938f;
+  border-radius: 3px;
+  background: linear-gradient(#f8f9f7, #cbd2cf);
+  color: #27373d;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.system-popover pre {
+  margin: 0;
+  padding: 9px;
+  overflow-x: auto;
+  border: 1px solid #405357;
+  border-radius: 2px;
+  background: #172225;
+  color: #c4dec7;
+  font: 11px/1.65 "DejaVu Sans Mono", "Liberation Mono", monospace;
+  white-space: pre-wrap;
+}
+
+.system-refresh {
+  margin-top: 8px;
+  padding: 5px 10px;
+  border: 1px solid #84918f;
+  border-radius: 3px;
+  background: linear-gradient(#f4f5f3, #d0d6d3);
+  color: #263a43;
+  font: 11px "DejaVu Sans", sans-serif;
+  cursor: pointer;
+}
+
+.panel-indicator.online {
+  color: #a8d78f;
+  text-shadow: 0 0 5px #a8d78f;
+}
+
+.panel-indicator.offline {
+  color: #d7a078;
+  text-shadow: 0 0 4px #d7a078;
+}

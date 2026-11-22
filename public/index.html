@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta content="#008080" name="theme-color"/>
+  <meta content="SteamGlass retro setup center &mdash; an old-web inspired Linux theme and plugin installer demo." name="description"/>
+  <title>SteamGlass — Setup Center</title>
+  <link rel="icon" type="image/jpeg" href="assets/steamglass-logo.jpg" />
+  <link rel="stylesheet" href="assets/style.css">
+ </head>
+ <body>
+  <div class="desktop" id="desktop">
+   <header class="linux-top-panel" aria-label="Classic Linux desktop panel">
+    <button class="panel-menu-button" id="applicationsButton" type="button">Applications</button>
+    <a class="panel-menu-link" href="https://gitlab.com/justiex/steamglass/-/releases" target="_blank" rel="noopener noreferrer">Places</a>
+    <button class="panel-menu-button" id="systemButton" type="button">System</button>
+    <span class="panel-app-name">GNOME 2 · GTK desktop</span>
+    <span class="panel-spacer"></span>
+    <span class="panel-indicator" id="serverIndicator" title="Checking server status" aria-label="Server status">●</span>
+    <span class="panel-clock" id="panelClock">--:--</span>
+   </header>
+   <section class="system-popover" id="systemPopover" aria-label="System monitor" hidden>
+    <div class="system-popover-heading">
+     <strong>System Monitor</strong>
+     <button type="button" id="closeSystemPopover" aria-label="Close system monitor">×</button>
+    </div>
+    <pre id="systemInfoContent">Connecting to the SteamGlass host...</pre>
+    <button class="system-refresh" id="refreshSystemInfo" type="button">Refresh</button>
+   </section>
+   <div aria-label="Desktop shortcuts" class="desktop-shortcuts" id="desktopShortcuts"></div>
+   <div class="window" id="appWindow">
+    <div class="titlebar" id="dragBar">
+     <span class="caption">
+      <img alt="" src="assets/steamglass-logo.jpg"/>
+      <span>
+       SteamGlass Setup Center &mdash; Interactive Installer
+      </span>
+     </span>
+     <span class="controls">
+      <button aria-label="Minimize" id="minBtn" title="Minimize">
+       _
+      </button>
+      <button aria-label="Maximize" id="maxBtn" title="Maximize">
+       &square;
+      </button>
+      <button aria-label="Close" id="closeBtn" title="Close">
+       &times;
+      </button>
+     </span>
+    </div>
+    <main id="mainScroll">
+     <section class="hero">
+      <img alt="SteamGlass logo" class="logo" src="assets/steamglass-logo.jpg"/>
+      <div>
+       <h1>
+        SteamGlass
+       </h1>
+       <p style="margin:0">
+        Customize the look of Steam on Linux.
+        <br/>
+        Welcome to the interactive setup center.
+       </p>
+       <span class="tag">
+        &starf; LINUX &bull; THEMES &bull; PLUGINS
+       </span>
+      </div>
+     </section>
+     <nav aria-label="Project links" class="quick-links">
+      <a
+       class="quick-link donate-link"
+       href="https://boosty.to/hobbyhorser"
+       rel="noopener noreferrer"
+       target="_blank"
+       title="Donate to SteamGlass on Boosty"
+      >
+       <span aria-hidden="true" class="heart">♥</span>
+       <span>DONATE ME PLS</span>
+      </a>
+     </nav>
+     <p class="donate-address">
+      <a href="https://boosty.to/hobbyhorser" rel="noopener noreferrer" target="_blank">boosty.to/hobbyhorser</a>
+     </p>
+     <div aria-label="Setup steps" class="steps">
+      <span class="stepdot active">
+       1. Welcome
+      </span>
+      <span class="stepdot">
+       2. Options
+      </span>
+      <span class="stepdot">
+       3. Update
+      </span>
+      <span class="stepdot">
+       4. Install
+      </span>
+      <span class="stepdot">
+       5. Finish
+      </span>
+     </div>
+     <div aria-label="Setup progress" class="progress">
+      <span id="progressFill">
+      </span>
+     </div>
+     <div class="layout">
+      <div>
+       <section class="panel wizard-page active" data-page="0">
+        <h2>
+         Welcome to SteamGlass
+        </h2>
+        <p>
+         This is a retro-style setup wizard inspired by classic desktop installers and the early web. Drag the blue title bar to move the window, resize it from the lower-right corner, and explore the setup pages.
+        </p>
+        <div class="notice">
+         Tip: drag the title bar to see a monochrome DOS-style window afterimage.
+        </div>
+        <p>
+         SteamGlass is a community project for Steam themes and plugins on Linux.
+        </p>
+        <div aria-live="polite" class="notice" id="releaseStatus" role="status">
+         Connecting to the release server&hellip;
+        </div>
+        <p>
+         <button class="action" disabled="" id="downloadLatest">
+          &darr; Download latest release
+         </button>
+         <a href="https://gitlab.com/justiex/steamglass/-/releases" rel="noopener" target="_blank">
+          Browse all releases &nearrow;
+         </a>
+        </p>
+        <button class="action primary next">
+         Next &rarr;
+        </button>
+       </section>
+       <section class="panel wizard-page" data-page="1">
+        <h2>
+         Setup Options
+        </h2>
+        <label for="channel">
+         Update channel
+        </label>
+        <select class="field" id="channel">
+         <option>
+          Stable &mdash; recommended
+         </option>
+         <option>
+          Preview &mdash; testing builds
+         </option>
+        </select>
+        <label for="installType">
+         Package format
+        </label>
+        <select class="field" id="installType">
+         <option>
+          Arch Linux package (.pkg.tar.zst)
+         </option>
+         <option>
+          Source archive (.tar.gz)
+         </option>
+        </select>
+        <label>
+         <input checked="" id="desktopShortcut" type="checkbox"/>
+         Add an application menu entry (demo)
+        </label>
+        <br/>
+        <label>
+         <input checked="" id="checkUpdates" type="checkbox"/>
+         Check GitLab for updates
+        </label>
+        <p>
+         <button class="action" id="back1">
+          &larr; Back
+         </button>
+         <button class="action primary next">
+          Next &rarr;
+         </button>
+        </p>
+       </section>
+       <section class="panel wizard-page" data-page="2">
+        <h2>
+         Update Service
+        </h2>
+        <p>
+         The setup wizard is checking the latest SteamGlass release and preparing the download link.
+        </p>
+        <div aria-live="polite" class="notice" id="updateStatus" role="status">
+         Waiting for release information&hellip;
+        </div>
+        <div class="progress">
+         <span id="downloadProgress" style="width:0">
+         </span>
+        </div>
+        <div class="console" id="updateConsole">
+         [UPDATE] SteamGlass update service
+[UPDATE] Waiting for release metadata&hellip;
+        </div>
+        <p>
+         <button class="action primary" disabled="" id="downloadRelease">
+          &darr; Download update
+         </button>
+         <button class="action" id="openReleases">
+          Release archive &nearrow;
+         </button>
+        </p>
+        <p class="notice">
+         The progress bar is a retro update animation. The download button opens the official GitLab release file. Your browser cannot install Linux packages by itself.
+        </p>
+        <p>
+         <button class="action" id="back2">
+          &larr; Back
+         </button>
+         <button class="action primary" disabled="" id="toInstall">
+          Next &rarr;
+         </button>
+        </p>
+       </section>
+       <section class="panel wizard-page" data-page="3">
+        <h2>
+         Installing SteamGlass
+        </h2>
+        <p>
+         The installer is running its visual installation sequence. This web demo does not modify system files.
+        </p>
+        <div class="console" id="installConsole">
+         [SETUP] Ready.
+[SETUP] Waiting for Next&hellip;
+        </div>
+        <div class="progress">
+         <span id="installProgress" style="width:0">
+         </span>
+        </div>
+        <p aria-live="polite" id="installStatus">
+         Press Next to begin the installation sequence.
+        </p>
+        <button class="action" id="back3">
+         &larr; Back
+        </button>
+        <button class="action primary" disabled="" id="finishInstall">
+         Next &rarr;
+        </button>
+       </section>
+       <section class="panel wizard-page" data-page="4">
+        <h2>
+         Setup Complete!
+        </h2>
+        <p>
+         The SteamGlass setup demo has finished successfully.
+        </p>
+        <div class="notice">
+         <strong>
+          One last step:
+         </strong>
+         install the downloaded package using your Linux package manager. The browser demo cannot run privileged system installation commands.
+        </div>
+        <p>
+         <a class="action primary" href="https://gitlab.com/justiex/steamglass/-/releases" rel="noopener" target="_blank">
+          Open official GitLab releases &nearrow;
+         </a>
+        </p>
+        <button class="action" id="restart">
+         Run setup again
+        </button>
+       </section>
+      </div>
+     </div>
+    </main>
+   </div>
+   <footer class="linux-bottom-panel" aria-label="Desktop taskbar">
+    <button class="taskbar-window-button" id="taskWindowButton" type="button">
+     <img src="assets/steamglass-logo.jpg" alt=""/>
+     <span>SteamGlass Setup</span>
+    </button>
+    <div class="workspace-switcher" aria-label="Workspace">
+     <button class="workspace active" type="button" aria-label="Workspace 1">1</button>
+     <button class="workspace" type="button" aria-label="Workspace 2" disabled>2</button>
+     <button class="workspace" type="button" aria-label="Workspace 3" disabled>3</button>
+     <button class="workspace" type="button" aria-label="Workspace 4" disabled>4</button>
+    </div>
+   </footer>
+  </div>
+  <div aria-hidden="true" class="crt-overlay">
+  </div>
+  <script src="assets/app.js" defer></script>
+ </body>
+</html>
